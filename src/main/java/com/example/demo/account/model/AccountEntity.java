@@ -27,10 +27,10 @@ public class AccountEntity {
     @Column
     private String lastName;
 
-    @Column
+    @Column(scale = 4, precision = 11)
     private BigDecimal plnAccount;
 
-    @Column
+    @Column(scale = 4, precision = 11)
     private BigDecimal usdAccount;
 
 
