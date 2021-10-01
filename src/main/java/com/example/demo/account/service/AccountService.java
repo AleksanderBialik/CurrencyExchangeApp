@@ -31,7 +31,7 @@ public class AccountService {
     }
 
     public ResponseEntity<Object> exchangeToPln(AccountEntity entity, BigDecimal amount){
-        Rates rates = exchangeRatesService.getExchangeRates();
+        Rates rates = getExchangeRates();
         MathContext m = new MathContext(4);
         entity.setUsdAccount(entity.getUsdAccount().subtract(amount));
         entity.setPlnAccount(entity.getPlnAccount().add(amount.multiply(rates.getBid(),m)));
@@ -40,12 +40,16 @@ public class AccountService {
     }
 
     public ResponseEntity<Object> exchangeToUsd(AccountEntity entity, BigDecimal amount){
-        Rates rates = exchangeRatesService.getExchangeRates();
+        Rates rates = getExchangeRates();
         MathContext m = new MathContext(4);
         entity.setPlnAccount(entity.getPlnAccount().subtract(amount));
         entity.setUsdAccount(entity.getUsdAccount().add(amount.divide(rates.getAsk(), m)));
         accountRepository.save(entity);
 
         return ResponseEntity.status(200).body("{\"message\":\"PLN was successfully exchanged to USD\"}");
+    }
+
+    public Rates getExchangeRates(){
+        return  exchangeRatesService.getExchangeRates();
     }
 }

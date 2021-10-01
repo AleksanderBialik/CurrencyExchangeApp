@@ -1,7 +1,9 @@
 package com.example.demo.account.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Entity(name = "Account")
 @Table(name = "account")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountEntity {
 
     @Id
@@ -32,6 +36,5 @@ public class AccountEntity {
 
     @Column(scale = 4, precision = 11)
     private BigDecimal usdAccount;
-
 
 }
